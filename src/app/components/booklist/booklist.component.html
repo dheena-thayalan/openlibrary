@@ -1,0 +1,109 @@
+<nz-row nzGutter="5">
+    <nz-col [nzSm]="7" [nzXs]="24" style="font-size: 2em;text-align: center; font-family: Georgia,Palatino Linotype,Book Antiqua,Palatino,serif;">Search the book :</nz-col>
+
+    <nz-col [nzSm]="10" [nzXs]="24">
+        <nz-input-group nzSearch nzSize="large" nzCompact>
+            <nz-select nzSize="large" ngModel="Title">
+                <nz-option nzLabel='Title' nzValue='Title'></nz-option>
+                <nz-option nzDisabled nzLabel='Author' nzValue='Author'></nz-option>
+                <nz-option nzDisabled nzLabel='Text' nzValue='Text'></nz-option>
+                <nz-option nzDisabled nzLabel='Subtitle' nzValue='Subtitle'></nz-option>
+                <nz-option nzDisabled nzLabel='List' nzValue='List'></nz-option>
+                <nz-option nzDisabled nzLabel='Advanced' nzValue='Advanced'></nz-option>
+            </nz-select>
+
+            <nz-select class="select" nzAllowClear nzShowSearch [nzLoading]="isLoading" [(ngModel)]="selectedValue"
+                nzSize="large" autocomplete="off" (nzOnSearch)="shearchbook($event)">
+
+                <ng-container *ngFor="let val of bookdata">
+                    <nz-option *ngIf="!isLoading" nzCustomContent [nzValue]="val?.key" [nzLabel]="val?.title">
+                        <nz-list class="demo-loadmore-list" nzSize="small" nzItemLayout="horizontal">
+                            <nz-list-item>
+                                <nz-list-item-meta>
+                                    <nz-list-item-meta-avatar
+                                        nzSrc="https://iconape.com/wp-content/png_logo_vector/book-5.png">
+                                    </nz-list-item-meta-avatar>
+                                    <nz-list-item-meta-title>
+                                        <a>{{val?.title}}</a>
+                                    </nz-list-item-meta-title>
+                                    <nz-list-item-meta-description>
+                                        By : {{val?.author_name}}
+                                    </nz-list-item-meta-description>
+                                </nz-list-item-meta>
+                            </nz-list-item>
+                        </nz-list>
+                    </nz-option>
+                </ng-container>
+
+                <nz-option *ngIf="bookdata?.length==0" nzDisabled nzCustomContent>
+                    <i nz-icon nzType="loading" class="loading-icon"></i> Loading Data...
+                </nz-option>
+            </nz-select>
+            <button nz-button nzType="primary" (click)="loadData()" nzSize="large" nzSearch>Search</button>
+        </nz-input-group>
+    </nz-col>
+
+    <nz-col [nzSm]="7" [nzXs]="24"></nz-col>
+
+    <nz-col [nzSm]="24" [nzXs]="24">
+        <br />
+        <br />
+        <nz-row nzGutter="5" *ngIf="isbookload">
+            <nz-col [nzSm]="3" [nzXs]="24"></nz-col>
+            <nz-col [nzSm]="6" [nzXs]="24">
+                <nz-card nzHoverable style="width:240px" [nzCover]="coverTemplate">
+                    <nz-rate [ngModel]="2.5"></nz-rate>
+
+                    <button nz-button class="cardB" nzType="primary" nzSize="large" nzDanger>Not in Library</button>
+
+
+                    <button nz-button class="cardB" nzType="dashed" nzSize="large" nzSearch>Search Inside</button>
+
+                    <button nz-button class="cardB" nzType="primary" nzSize="large" nzSearch>Want to Read</button>
+                </nz-card>
+                <ng-template #coverTemplate>
+                    <img alt="example"
+                        src="https://preview.free3d.com/img/2014/02/2174820619298801133/3s4zulq6-900.jpg" />
+                </ng-template>
+            </nz-col>
+            <nz-col [nzSm]="12" [nzXs]="24">
+                <nz-list nzItemLayout="vertical" [nzLoading]="!isbookload">
+                    <nz-list-item>
+                        <nz-list-item-meta>
+                            <nz-list-item-meta-title>
+                                <h1 style="font-family: Georgia,Palatino Linotype,Book Antiqua,Palatino,serif;
+                               margin: 10px 0 0;
+                               color: #333;
+                               font-size: 2em;"> {{ data?.title }} </h1>
+                                <br />
+                                <h3 style="font-style: oblique;">{{ data?.excerpts[0]?.excerpt }}</h3>
+                            </nz-list-item-meta-title>
+                            <nz-list-item-meta-description>
+                                {{ data?.description }}
+                            </nz-list-item-meta-description>
+                        </nz-list-item-meta>
+                        <ul nz-list-item-actions>
+                            <nz-list-item-action>
+                                <i nz-icon nzType="star-o" style="margin-right: 8px;"></i>
+                                156
+                            </nz-list-item-action>
+                            <nz-list-item-action>
+                                <i nz-icon nzType="star-o" style="margin-right: 8px;"></i>
+                                156
+                            </nz-list-item-action>
+                            <nz-list-item-action>
+                                <i nz-icon nzType="star-o" style="margin-right: 8px;"></i>
+                                2
+                            </nz-list-item-action>
+                        </ul>
+                        <nz-list-item-extra></nz-list-item-extra>
+                    </nz-list-item>
+                </nz-list>
+            </nz-col>
+
+        </nz-row>
+    </nz-col>
+
+
+
+</nz-row>

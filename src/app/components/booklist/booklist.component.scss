@@ -1,0 +1,19 @@
+nz-select {
+    min-width:7vw;
+  }
+  .select {
+    width: 25vw;
+  }
+  .demo-loadmore-list {
+    height: 65px;
+  }
+  .cardB{
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    width:100%; 
+    height:50%;
+    margin-top: 20px;
+}
+[nz-list-item-actions]{
+    margin-left: 20px;
+}
